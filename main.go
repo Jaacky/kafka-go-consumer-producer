@@ -22,7 +22,13 @@ func main() {
 		fmt.Println("Could not create consumer: ", err)
 	}
 
+	consumer2, err := sarama.NewConsumer(brokers, nil)
+	if err != nil {
+		fmt.Println("Could not create consumer: ", err)
+	}
+
 	subscribe(topic, consumer, producer)
+	subscribeToMessages(topic, consumer2)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) { fmt.Fprint(w, "Hello Sarama!") })
 
